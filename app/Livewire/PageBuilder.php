@@ -6,7 +6,6 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Page;
 use App\Models\PageMedia;
-use App\Services\PaymentService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,6 +28,10 @@ class PageBuilder extends Component
     public $theme_style = 'confetti';
     public $music_file; 
     
+    // Premium Logic
+    public $isPremiumMode = false;
+    public $showPremiumModal = false;
+
     // Final
     public $generatedPageId;
 
@@ -44,7 +47,7 @@ class PageBuilder extends Component
         ],
         3 => [
             'theme_style' => 'required|in:confetti,dark-romantic,minimal',
-            'music_file' => 'nullable|file|mimes:mp3,wav|max:10240', // 10MB
+            'music_file' => 'nullable|file|max:10240|mimes:mp3,wav', // 10MB
         ],
     ];
 
@@ -53,6 +56,46 @@ class PageBuilder extends Component
         if (!$this->slug) {
             $this->slug = Str::slug($this->title . '-' . Str::random(4));
         }
+    }
+
+    public function updatedPhotos()
+    {
+        if (count($this->photos) > 3) {
+            $this->triggerPremiumModal();
+        }
+    }
+
+    public function updatedMusicFile()
+    {
+        if ($this->music_file) {
+            $this->triggerPremiumModal();
+        }
+    }
+
+    public function triggerPremiumModal()
+    {
+        if (!$this->isPremiumMode) {
+            $this->showPremiumModal = true;
+        }
+    }
+
+    public function goPremium()
+    {
+        $this->isPremiumMode = true;
+        $this->showPremiumModal = false;
+    }
+
+    public function stayFree()
+    {
+        // Revert changes to free limits
+        if (count($this->photos) > 3) {
+            $this->photos = array_slice($this->photos, 0, 3);
+        }
+        
+        $this->music_file = null;
+        
+        $this->isPremiumMode = false;
+        $this->showPremiumModal = false;
     }
 
     public function nextStep()
@@ -80,6 +123,7 @@ class PageBuilder extends Component
             'message' => $this->message,
             'theme_style' => $this->theme_style,
             'music_url' => $this->music_file ? $this->music_file->store('music', 'public') : null,
+            'is_premium' => false, // Default to false
         ]);
 
         // Save Photos
@@ -94,8 +138,10 @@ class PageBuilder extends Component
 
         $this->generatedPageId = $page->id;
         
-        // Redirect to payment or show success
-        // For this MVP, we redirect to the page
+        if ($this->isPremiumMode) {
+            return redirect()->route('payment.checkout', ['page_id' => $page->id]);
+        }
+
         return redirect()->route('page.show', ['slug' => $page->slug]);
     }
 

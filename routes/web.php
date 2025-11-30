@@ -3,21 +3,20 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\PaymentWebhookController;
+use App\Http\Controllers\PaymentController;
 use App\Livewire\PageBuilder;
 
-Route::get('/', [LandingController::class, 'index'])->name('home');
+// Root points to PageBuilder for immediate action
+Route::get('/', PageBuilder::class)->name('home');
 
-// Authenticated routes
+// Authenticated routes (Optional for now)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/create', PageBuilder::class)->name('page.create');
+    // Route::get('/create', PageBuilder::class)->name('page.create'); 
 });
 
-// Payment Stub Routes
-Route::get('/payment/simulate/{transaction}', [PaymentWebhookController::class, 'simulate'])->name('payment.simulate');
-Route::post('/payment/webhook', [PaymentWebhookController::class, 'handle'])->name('payment.webhook');
-
-// require __DIR__.'/auth.php';
+// Payment Simulation Routes
+Route::get('/checkout/{page_id}', [PaymentController::class, 'checkout'])->name('payment.checkout');
+Route::post('/payment/callback', [PaymentController::class, 'callback'])->name('payment.callback');
 
 // Public Page Viewer - Must be last
 Route::post('/pages/{page}/upgrade', [PageController::class, 'upgrade'])->name('page.upgrade');

@@ -4,33 +4,73 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'MomenKu' }}</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-coral': '#FF6B6B',
+                        'brand-orange': '#FFA502',
+                        'brand-cream': '#FFF9F5',
+                        'brand-slate': '#2D3436',
+                        'brand-teal': '#1DD1A1',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
     @livewireStyles
 </head>
-<body class="bg-gray-50 font-sans antialiased">
-    <div class="min-h-screen flex flex-col">
-        <!-- Navbar -->
-        <nav class="bg-white shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
-                        <div class="shrink-0 flex items-center">
-                            <a href="/" class="font-bold text-2xl text-indigo-600">MomenKu</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+<body class="bg-brand-cream font-sans text-brand-slate antialiased selection:bg-brand-coral selection:text-white">
+    <!-- Unlocked Container Width for Desktop -->
+    <div class="min-h-screen flex flex-col w-full max-w-[1440px] mx-auto px-6 relative overflow-hidden">
+        
+        <!-- Background Blobs (Larger & Softer) -->
+        <div class="blob bg-brand-coral w-[500px] h-[500px] top-[-10%] left-[-10%] opacity-20 animate-pulse"></div>
+        <div class="blob bg-brand-orange w-[600px] h-[600px] bottom-[-10%] right-[-10%] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="blob bg-purple-300 w-[400px] h-[400px] top-[20%] left-[40%] transform -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
+
+        <!-- Header -->
+        <header class="py-6 flex justify-center lg:justify-start sticky top-0 z-50">
+            <a href="/" class="glass px-8 py-3 rounded-full text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-coral to-brand-orange hover:scale-105 transition-transform cursor-pointer shadow-sm backdrop-blur-xl border-white/40">
+                MomenKu
+            </a>
+        </header>
 
         <!-- Page Content -->
-        <main class="flex-grow">
+        <main class="flex-grow z-10 w-full">
             {{ $slot }}
         </main>
 
-        <footer class="bg-white border-t border-gray-200 mt-auto">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <p class="text-center text-gray-500 text-sm">© 2025 MomenKu. All rights reserved.</p>
-            </div>
+        <!-- Footer -->
+        <footer class="py-8 text-center relative mt-10 z-10 border-t border-brand-slate/5">
+            <p class="text-sm font-bold text-brand-slate/50">Made for Gen-Z ⚡</p>
+            <p class="text-xs text-brand-slate/30 mt-1">© 2025 MomenKu</p>
         </footer>
     </div>
     @livewireScripts
