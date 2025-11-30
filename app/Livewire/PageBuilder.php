@@ -30,6 +30,11 @@ class PageBuilder extends Component
     public $theme_style = 'confetti';
     public $music_file; 
     
+    // Step 4: Customization (New)
+    public $font_style = 'outfit';
+    public $color_theme = 'sunset';
+    public $layout_mode = 'carousel';
+
     // Premium Logic
     public $isPremiumMode = false;
     public $showPremiumModal = false;
@@ -41,16 +46,27 @@ class PageBuilder extends Component
         1 => [
             'title' => 'required|string|max:255',
             'recipient_name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:pages,slug',
+            'message' => 'required|string',
+            'photos.*' => 'nullable|image|max:10240',
         ],
         2 => [
-            'message' => 'required|string',
-            'photos.*' => 'image|max:5120', // 5MB
+            'color_theme' => 'nullable|string',
+            'font_style' => 'nullable|string',
+            'layout_mode' => 'nullable|string',
+            'theme_style' => 'nullable|string',
+            'music_file' => 'nullable|file|max:10240|mimes:mp3,wav',
         ],
         3 => [
-            'theme_style' => 'required|in:confetti,dark-romantic,minimal',
-            'music_file' => 'nullable|file|max:10240|mimes:mp3,wav', // 10MB
+            'slug' => 'required|string|max:255|unique:pages,slug',
         ],
+    ];
+
+    protected $messages = [
+        'photos.*.max' => 'Foto kegedean! Maks 10MB ya.',
+        'photos.*.image' => 'Hanya boleh upload gambar ya.',
+        'music_file.max' => 'File musik maksimal 10MB.',
+        'music_file.mimes' => 'Format musik harus MP3 atau WAV.',
+        'slug.unique' => 'Link ini udah dipake orang lain, coba yang lain ya!',
     ];
 
     public function updatedTitle()
@@ -100,9 +116,18 @@ class PageBuilder extends Component
         $this->showPremiumModal = false;
     }
 
+    public function goToStep($step)
+    {
+        // Allow going back freely, but validate before going forward
+        if ($step > $this->currentStep) {
+            $this->validate($this->rules[$this->currentStep] ?? []);
+        }
+        $this->currentStep = $step;
+    }
+
     public function nextStep()
     {
-        $this->validate($this->rules[$this->currentStep]);
+        $this->validate($this->rules[$this->currentStep] ?? []);
         $this->currentStep++;
     }
 
@@ -113,7 +138,7 @@ class PageBuilder extends Component
 
     public function submit()
     {
-        // Final validation
+        // Final validation - merge all rules
         $this->validate($this->rules[1] + $this->rules[2] + $this->rules[3]);
 
         // Check if user is logged in, otherwise create a guest user
@@ -141,6 +166,9 @@ class PageBuilder extends Component
             'theme_style' => $this->theme_style,
             'music_url' => $this->music_file ? $this->music_file->store('music', 'public') : null,
             'is_premium' => false, // Default to false
+            'font_style' => $this->font_style,
+            'color_theme' => $this->color_theme,
+            'layout_mode' => $this->layout_mode,
         ]);
 
         // Save Photos
