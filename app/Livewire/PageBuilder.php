@@ -6,8 +6,10 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Page;
 use App\Models\PageMedia;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PageBuilder extends Component
 {
@@ -114,9 +116,24 @@ class PageBuilder extends Component
         // Final validation
         $this->validate($this->rules[1] + $this->rules[2] + $this->rules[3]);
 
+        // Check if user is logged in, otherwise create a guest user
+        $user = Auth::user();
+
+        if (!$user) {
+            // Create user silently
+            $user = User::create([
+                'name' => 'Guest ' . Str::random(5),
+                'email' => 'guest.' . Str::random(8) . '@momenku.id',
+                'password' => Hash::make('password123'), // Default password
+            ]);
+            
+            // Log them in
+            Auth::login($user);
+        }
+
         // Create Page
         $page = Page::create([
-            'user_id' => Auth::id() ?? 1, // Fallback to 1 if not auth (dev only)
+            'user_id' => $user->id,
             'title' => $this->title,
             'recipient_name' => $this->recipient_name,
             'slug' => $this->slug,
