@@ -1,112 +1,164 @@
-# 🚀 MomenKu - Viral Micro-Website Builder
+# 🎁 MomenKu
 
-![MomenKu Banner](https://via.placeholder.com/1200x400?text=MomenKu+Dashboard+Preview)
-> *Create unforgettable digital memories in seconds. No coding required.*
+**Bikin ucapan digital paling aesthetic buat doi/bestie!**
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel" />
-  <img src="https://img.shields.io/badge/Livewire-3.x-4E56A6?style=for-the-badge&logo=livewire" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css" />
-  <img src="https://img.shields.io/badge/Status-MVP_Ready-success?style=for-the-badge" />
-</p>
+MomenKu adalah platform untuk membuat kartu ucapan digital yang cantik dan interaktif. Kirim surprise ke orang tersayang dengan pengalaman "unboxing" yang unik!
 
-## 📖 About The Project
+![MomenKu Preview](public/images/logo-full.png)
 
-**MomenKu** is a SaaS (Software as a Service) platform designed to solve a simple yet universal problem: **"Boring Greetings"**. Instead of sending a plain text "Happy Birthday" on WhatsApp, MomenKu allows users to generate stunning, interactive, and personalized micro-websites for their loved ones.
+---
 
-Built with a **Mobile-First** approach for Gen-Z users, featuring a high-conversion **Freemium Business Model**.
+## ✨ Fitur
 
-### ✨ Key Features
-* **🎨 No-Code Page Builder:** Drag & drop interface to customize messages, photos, and music.
-* **📱 Real-time Mobile Preview:** Desktop users get a live iPhone-frame preview while editing (Split-Screen Layout).
-* **🎉 Interactive Themes:** Includes Confetti explosions, Dark Romantic mode, and Clean Minimal styles.
-* **🔒 Freemium Mechanics:**
-    * *Free:* Basic templates, limited photos, watermark.
-    * *Premium:* Custom music upload, unlimited photos, password protection, permanent link.
-* **💸 Payment Integration (Simulated):** Integrated flow for QRIS/E-Wallet payments (Tripay Logic).
+- 🎨 **Customizable Themes** - Pilih warna gradient (Sunset, Ocean, Midnight, Candy)
+- 🔤 **Multiple Fonts** - Modern, Handwritten, atau Elegant
+- 📸 **Photo Layouts** - Carousel, Grid, atau Polaroid style
+- 🎵 **Background Music** - Upload lagu favorit (Premium)
+- 🎉 **Confetti Effects** - Animasi confetti saat membuka
+- 📦 **Gift Box Experience** - Penerima harus "tap" kotak untuk reveal pesan
+- 🔗 **Custom Links** - Buat link unik untuk setiap momen
 
-## 🛠️ Tech Stack
+---
 
-* **Framework:** [Laravel 11](https://laravel.com)
-* **Fullstack Interaction:** [Livewire 3](https://livewire.laravel.com) (SPA-like feel without complexity)
-* **Styling:** [Tailwind CSS](https://tailwindcss.com) + Custom "Gen-Z" Aesthetic Config
-* **Scripting:** Alpine.js (for lightweight interactions like music players)
-* **Database:** MySQL
-
-## 🚀 Getting Started
-
-Follow these steps to run the project locally:
+## 🚀 Quick Start
 
 ### Prerequisites
-* PHP >= 8.2
-* Composer
-* Node.js & NPM
+- PHP 8.1+
+- Composer
+- Node.js 18+
+- SQLite / MySQL
 
 ### Installation
 
-1.  **Clone the repository**
-    ```bash
-    git clone [https://github.com/yhyaa294/MomenKu.git](https://github.com/yhyaa294/MomenKu.git)
-    cd MomenKu
-    ```
+```bash
+# Clone repository
+git clone https://github.com/yhyaa294/MomenKu.git
+cd MomenKu
 
-2.  **Install PHP Dependencies**
-    ```bash
-    composer install
-    ```
+# Install dependencies
+composer install
+npm install
 
-3.  **Install Frontend Dependencies**
-    ```bash
-    npm install
-    ```
+# Setup environment
+cp .env.example .env
+php artisan key:generate
 
-4.  **Environment Setup**
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    ```
-    *Configure your database name (DB_DATABASE=momenku) in the .env file.*
+# Setup database
+touch database/database.sqlite
+php artisan migrate
 
-5.  **Database Migration**
-    ```bash
-    php artisan migrate
-    ```
+# Build assets
+npm run build
 
-6.  **Storage Link (Crucial for Images)**
-    ```bash
-    php artisan storage:link
-    ```
+# Start server
+php artisan serve
+```
 
-7.  **Run the App**
-    *Terminal 1 (Backend):*
-    ```bash
-    php artisan serve
-    ```
-    *Terminal 2 (Frontend Build):*
-    ```bash
-    npm run dev
-    ```
-
-## 📸 Screenshots
-
-| Landing Page | Mobile Wizard | Premium Checkout |
-|:---:|:---:|:---:|
-| ![Landing](https://via.placeholder.com/300x200?text=Landing) | ![Mobile](https://via.placeholder.com/300x600?text=Mobile+View) | ![Checkout](https://via.placeholder.com/300x200?text=Premium+Flow) |
-
-*(Note: Replace placeholders above with actual screenshots of your app)*
-
-## 💡 Business Logic (Monetization)
-
-The app uses a **Micro-Transaction model**:
-1.  **Hook:** Users create a page for free.
-2.  **Trigger:** When they upload >3 photos or want custom music, the system triggers a "Premium Alert".
-3.  **Conversion:** A low-entry fee (e.g., IDR 10,000) encourages high volume sales via QRIS.
-
-## 👤 Author
-
-**Yahya**
-* *AI Talent Hub Indonesia (Top 20)*
-* *Fullstack Developer & Startup Enthusiast*
+Buka `http://localhost:8000` di browser.
 
 ---
-Made with ❤️ and Laravel in Indonesia.
+
+## 📱 User Flow
+
+```
+Landing Page → Create Page → Customize → Generate Link → Share
+                                                           ↓
+                              Recipient opens → Tap Gift Box → Reveal Content!
+```
+
+1. **Landing Page** (`/`) - Hero section dengan CTA
+2. **Create** (`/create`) - Form wizard 3 langkah
+3. **Result** (`/{slug}`) - Halaman hasil dengan gift box unboxing
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Laravel 11
+- **Frontend:** Livewire 3, Alpine.js, Tailwind CSS
+- **Database:** SQLite (dev) / MySQL (prod)
+- **Build:** Vite
+
+---
+
+## 📁 Project Structure
+
+```
+momenku/
+├── app/
+│   ├── Livewire/
+│   │   └── PageBuilder.php      # Main form component
+│   └── Http/Controllers/
+│       └── PageController.php   # Show page logic
+├── resources/views/
+│   ├── welcome.blade.php        # Landing page
+│   ├── livewire/
+│   │   └── page-builder.blade.php
+│   └── pages/
+│       └── show.blade.php       # Result page
+├── public/images/               # Assets
+└── routes/web.php               # Routes
+```
+
+---
+
+## 🎨 Customization Options
+
+### Color Themes
+| Theme | Gradient |
+|-------|----------|
+| Sunset | Rose → Orange → Amber |
+| Ocean | Cyan → Blue → Indigo |
+| Midnight | Slate → Purple |
+| Candy | Pink → Fuchsia → Purple |
+
+### Font Styles
+| Style | Font Family |
+|-------|-------------|
+| Modern | Outfit |
+| Handwritten | Caveat |
+| Elegant | Playfair Display |
+
+### Photo Layouts
+| Layout | Description |
+|--------|-------------|
+| Carousel | Horizontal swipe gallery |
+| Grid | Pinterest-style masonry |
+| Polaroid | Scattered photo effect |
+
+---
+
+## 💎 Premium Features
+
+- Unlimited photo uploads (Free: max 3)
+- Custom background music
+- No watermark
+
+---
+
+## 🚢 Deployment
+
+### Vercel (Serverless)
+Project sudah dikonfigurasi untuk Vercel. Cukup connect repository dan deploy.
+
+### Traditional Hosting
+1. Upload semua file ke server
+2. Point domain ke `/public`
+3. Setup `.env` dengan database credentials
+4. Run `php artisan migrate`
+
+---
+
+## 📄 License
+
+MIT License - Free to use and modify!
+
+---
+
+## 🤝 Contributing
+
+Pull requests welcome! Untuk perubahan besar, buka issue dulu untuk diskusi.
+
+---
+
+Made with 💝 by MomenKu Team
