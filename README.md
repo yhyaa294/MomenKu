@@ -1,59 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 MomenKu - Viral Micro-Website Builder
+
+![MomenKu Banner](https://via.placeholder.com/1200x400?text=MomenKu+Dashboard+Preview)
+> *Create unforgettable digital memories in seconds. No coding required.*
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel" />
+  <img src="https://img.shields.io/badge/Livewire-3.x-4E56A6?style=for-the-badge&logo=livewire" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-3.x-38B2AC?style=for-the-badge&logo=tailwind-css" />
+  <img src="https://img.shields.io/badge/Status-MVP_Ready-success?style=for-the-badge" />
 </p>
 
-## About Laravel
+## 📖 About The Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**MomenKu** is a SaaS (Software as a Service) platform designed to solve a simple yet universal problem: **"Boring Greetings"**. Instead of sending a plain text "Happy Birthday" on WhatsApp, MomenKu allows users to generate stunning, interactive, and personalized micro-websites for their loved ones.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Built with a **Mobile-First** approach for Gen-Z users, featuring a high-conversion **Freemium Business Model**.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### ✨ Key Features
+* **🎨 No-Code Page Builder:** Drag & drop interface to customize messages, photos, and music.
+* **📱 Real-time Mobile Preview:** Desktop users get a live iPhone-frame preview while editing (Split-Screen Layout).
+* **🎉 Interactive Themes:** Includes Confetti explosions, Dark Romantic mode, and Clean Minimal styles.
+* **🔒 Freemium Mechanics:**
+    * *Free:* Basic templates, limited photos, watermark.
+    * *Premium:* Custom music upload, unlimited photos, password protection, permanent link.
+* **💸 Payment Integration (Simulated):** Integrated flow for QRIS/E-Wallet payments (Tripay Logic).
 
-## Learning Laravel
+## 🛠️ Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* **Framework:** [Laravel 11](https://laravel.com)
+* **Fullstack Interaction:** [Livewire 3](https://livewire.laravel.com) (SPA-like feel without complexity)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com) + Custom "Gen-Z" Aesthetic Config
+* **Scripting:** Alpine.js (for lightweight interactions like music players)
+* **Database:** MySQL
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Getting Started
 
-## Laravel Sponsors
+Follow these steps to run the project locally:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Prerequisites
+* PHP >= 8.2
+* Composer
+* Node.js & NPM
 
-### Premium Partners
+### Installation
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+1.  **Clone the repository**
+    ```bash
+    git clone [https://github.com/yhyaa294/MomenKu.git](https://github.com/yhyaa294/MomenKu.git)
+    cd MomenKu
+    ```
 
-## Contributing
+2.  **Install PHP Dependencies**
+    ```bash
+    composer install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3.  **Install Frontend Dependencies**
+    ```bash
+    npm install
+    ```
 
-## Code of Conduct
+4.  **Environment Setup**
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+    *Configure your database name (DB_DATABASE=momenku) in the .env file.*
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5.  **Database Migration**
+    ```bash
+    php artisan migrate
+    ```
 
-## Security Vulnerabilities
+6.  **Storage Link (Crucial for Images)**
+    ```bash
+    php artisan storage:link
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+7.  **Run the App**
+    *Terminal 1 (Backend):*
+    ```bash
+    php artisan serve
+    ```
+    *Terminal 2 (Frontend Build):*
+    ```bash
+    npm run dev
+    ```
 
-## License
+## 📸 Screenshots
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Landing Page | Mobile Wizard | Premium Checkout |
+|:---:|:---:|:---:|
+| ![Landing](https://via.placeholder.com/300x200?text=Landing) | ![Mobile](https://via.placeholder.com/300x600?text=Mobile+View) | ![Checkout](https://via.placeholder.com/300x200?text=Premium+Flow) |
+
+*(Note: Replace placeholders above with actual screenshots of your app)*
+
+## 💡 Business Logic (Monetization)
+
+The app uses a **Micro-Transaction model**:
+1.  **Hook:** Users create a page for free.
+2.  **Trigger:** When they upload >3 photos or want custom music, the system triggers a "Premium Alert".
+3.  **Conversion:** A low-entry fee (e.g., IDR 10,000) encourages high volume sales via QRIS.
+
+## 👤 Author
+
+**Yahya**
+* *AI Talent Hub Indonesia (Top 20)*
+* *Fullstack Developer & Startup Enthusiast*
+
+---
+Made with ❤️ and Laravel in Indonesia.
